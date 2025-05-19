@@ -10,6 +10,16 @@ export const getTask = async (req: Request, res: Response) => {
   }
 };
 
+export const getTaskStrings = async (req: Request, res: Response) => {
+  try {
+    const tasks = await Task.find();
+    const taskStrings = tasks.map((task) => task.title); // solo título
+    res.json(taskStrings);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching task strings' });
+  }
+};
+
 export const createTask = async (req: Request, res: Response) => {
   try {
     const task = new Task(req.body);
